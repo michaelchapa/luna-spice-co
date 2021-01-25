@@ -28,6 +28,12 @@ app.use(bodyParser.urlencoded({
 // Configure CORS middleware
 app.use(cors());
 
+// Require Route
+const api = require('./routes/routes'); 
+
+// Configure app to use route
+app.use('/api/v1/', api);
+
 // This Middleware informs the express application
 // to serve our Compiled React files.
 // At Runtime NODE_ENV is checked to indicate whether 
