@@ -1,0 +1,89 @@
+.productImage {
+    display: block;
+    width: 50%;
+    height: auto;
+    margin: auto;
+    border-radius: 50%;
+}
+
+.description {
+    display: block; 
+    width: 60%;
+    padding: 0.5em 3em; 
+    border: 0.16em solid #FFFFFF;
+    margin: 1em auto 1em;
+    box-sizing: border-box; 
+    text-decoration: none;
+    text-transform:uppercase;
+    font-family: sans-serif;
+    font-weight: 400;
+    color:#FFFFFF;
+    text-align:center;
+    transition: all 0.15s;
+}
+
+#product1Header {
+    background-color: chartreuse;
+    color: red;
+    padding: 0.5em 2em;
+    font-size: 1.5rem;
+}
+
+#product2Header {
+    background-color: chartreuse;
+    color: red; 
+    padding: 0.5em 2em;
+    font-size: 1.5rem;
+}
+
+#addToCartButton{
+    display: inline-block;
+    padding: 0.5em 3em; 
+    border: 0.16em solid #FFFFFF;
+    margin: 0 0.3em 0.3em 0;
+    box-sizing: border-box; 
+    text-decoration: none;
+    text-transform:uppercase;
+    font-family: sans-serif;
+    font-weight: 400;
+    color:#FFFFFF;
+    text-align:center;
+    transition: all 0.15s;
+}
+
+#addToCartButton:hover{
+    color: #DDDDDD;
+    border-color: #DDDDDD;
+}
+
+#addToCartButton:active{
+    color: #BBBBBB;
+    border-color: #BBBBBB;
+}
+
+@media all and (max-width: 30em){
+    #addToCartButton{
+        display: block;
+        margin: 0.4em auto;
+    }
+
+    .description{
+        display: block;
+        margin: 0.4em auto;
+        width: 100%;
+    }
+}
+
+body {
+    background-color: rgb(255, 41, 209);
+}
+
+h1 {
+    font-family: "Arial Black", sans-serif;
+    font-size: 4.5em;
+    letter-spacing: -1px;
+    background-color: black;
+    color: rgb(255, 244, 253);
+  }
+
+  
