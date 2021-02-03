@@ -4,6 +4,8 @@ import { CartProvider } from './components/CartContext'
 import { InventoryProvider } from './components/InventoryContext'
 import Navigation from './components/Navigation/Navigation'
 import Homepage from './components/Homepage/Homepage'
+import Checkout from './components/Checkout/Checkout'
+import About from './components/About/About'
 import './App.css'
 
 function App(){
@@ -15,6 +17,8 @@ function App(){
         <Navigation />
         <Switch>
           <Route exact path = "/" component = {Homepage} />
+          <Route exact path = "/checkout" component = {Checkout} />
+          <Route exact path = "/about" component = {About} />
         </Switch>
       </Router>
       </CartProvider>

@@ -78,6 +78,7 @@ function Cart({ history }) {
         setSidebar();
         history.push('/checkout');
     }
+    
     return (
         <div>
             <h1>Cart</h1>
