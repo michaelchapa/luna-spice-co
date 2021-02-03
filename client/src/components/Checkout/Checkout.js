@@ -2,12 +2,13 @@ import React, { useContext } from 'react'
 import { withRouter } from 'react-router-dom'
 import ShippingForm from './ShippingForm/ShippingForm'
 import { CartContext } from '../CartContext'
+// import { loadStripe } from 
 
 function Checkout({ history }) {
     // eslint-disable-next-line
     const [cart, setCart, totalPrice, itemCount, cartSummary, 
         sidebar, setSidebar] = useContext(CartContext);
-
+    
     function goto(step) { 
         if(step === 0) {
             history.push('/cart');
