@@ -4,7 +4,7 @@ const controllers = require('./../controllers/controllers');
 
 // get request route handler.
 // Calls our Controller saySomething
-router.get('/say-something', controllers.saySomething);
+router.get('/charge', controllers.saySomething);
 
 // Calls our Controller somethingElse
 router.get('/something-else', controllers.somethingElse);

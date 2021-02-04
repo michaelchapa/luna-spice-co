@@ -1,13 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react'
-import axios from 'axios'
+import React, { useContext } from 'react'
 import { CartContext } from '../CartContext'
 import { InventoryContext } from '../InventoryContext'
 import styles from './Homepage.module.css'
 
-
 export default function Homepage() {
     const [inventory] = useContext(InventoryContext);
-    const [response, setResponse] = useState({});
     const [cart, setCart, totalPrice, itemCount, cartSummary, 
         sidebar, setSidebar, showSidebar] = useContext(CartContext);
 
@@ -36,15 +33,6 @@ export default function Homepage() {
             setCart([...cart, productToAdd]);
         }
     }
-
-    useEffect(() => {
-        axios.get('/api/v1/say-something').then((res) => {
-            const response = res.data;
-            setResponse(response);
-        });
-
-        // TODO: extend API interaction? 
-    }, []);
 
     return (
         <>
