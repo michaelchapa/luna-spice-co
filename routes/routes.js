@@ -3,10 +3,8 @@ const router = express.Router();
 const controllers = require('./../controllers/controllers');
 
 // get request route handler.
-// Calls our Controller saySomething
-router.get('/charge', controllers.saySomething);
-
-// Calls our Controller somethingElse
-router.get('/something-else', controllers.somethingElse);
+// Calls our Controller
+router.get('/charge', controllers.charge);
+router.post('/chargestripe', controllers.chargestripe);
 
 module.exports = router;
