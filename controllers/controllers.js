@@ -1,14 +1,6 @@
 require('dotenv').config();
 
-const charge = (req, res, next) => {
-    res.status(200).json({
-        head: 'This the head bro',
-        body: 'body ody ody ody ody ody ody',
-        foot: 'feetz'
-    });
-}
-
-const chargestripe = async (req, res, next) => {
+const charge = async (req, res, next) => {
     const stripe = require('stripe')(process.env.API_KEY);
     
     const paymentIntent = await stripe.paymentIntents.create({
@@ -16,10 +8,10 @@ const chargestripe = async (req, res, next) => {
         currency: 'usd',
         payment_method_types: ['card'],
         receipt_email: 'michaelchapa1@gmail.com',
+        metadata: {integration_check: 'accept_a_payment'}
     });
-
-    res.status(200).json(paymentIntent);
+    
+    res.status(200).json({client_secret: paymentIntent.client_secret});
 }
 
 module.exports.charge = charge;
-module.exports.chargestripe = chargestripe; 

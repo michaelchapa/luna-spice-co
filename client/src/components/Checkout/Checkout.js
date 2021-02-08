@@ -14,7 +14,7 @@ function Checkout({ history }) {
     const [cart, setCart, totalPrice, itemCount, cartSummary, 
         sidebar, setSidebar, showSidebar] = useContext(CartContext);
 
-    const [response, setResponse] = useState({});
+    const [clientSecret, setClientSecret] = useState({});
     
     function goto(step) { 
         if(step === 0){
@@ -22,20 +22,17 @@ function Checkout({ history }) {
         }
     }
 
-    function getRequest(){
-        axios.get('/api/v1/charge').then((res) => {
-            const resp = res.data;
-            setResponse(resp);
-            console.log(response);
-        });
-    }
-
     function postRequest(){
-        axios.post('/api/v1/chargestripe').then((res) => {
-            const resp = res.body;
-            setResponse(resp);
-            console.log(response);
+        axios.post('/api/v1/charge').then((res) => {
+            return res.data;
+            
+        }).then((responseJson) => {
+            const clientSecret = responseJson.client_secret;
+            setClientSecret(clientSecret);
+            console.log(clientSecret);
         });
+
+        // Call stripe.confirmCardPayment() with the client secret.
     }
 
     return (
@@ -46,7 +43,6 @@ function Checkout({ history }) {
             <button onClick = {showSidebar}>Edit Cart</button>
             <span className = "total-label">Total:</span>
             <span className = "total-number">${totalPrice}</span>
-            <button onClick = {getRequest} value = "Complete Order">getRequest</button>
             <button onClick = {postRequest} value = "Complete Order">postRequest</button>
         </div>
     )

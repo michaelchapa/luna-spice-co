@@ -4,7 +4,6 @@ const controllers = require('./../controllers/controllers');
 
 // get request route handler.
 // Calls our Controller
-router.get('/charge', controllers.charge);
-router.post('/chargestripe', controllers.chargestripe);
+router.post('/charge', controllers.charge);
 
 module.exports = router;
