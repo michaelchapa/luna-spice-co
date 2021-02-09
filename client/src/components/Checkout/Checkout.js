@@ -1,34 +1,28 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { withRouter } from 'react-router-dom'
-import ShippingForm from './ShippingForm/ShippingForm'
 import { CartContext } from '../CartContext'
-import { loadStripe } from '@stripe/stripe-js'
-import { Elements, 
-         useElements,  
-         useStripe, 
-         CardElement } from '@stripe/react-stripe-js'
-import './Checkout.css'
+import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
+import ShippingForm from './ShippingForm/ShippingForm'
+import CardSection from './CardSection/CardSection'
 import axios from 'axios'
+import './Checkout.css'
 
 function Checkout({ history }) {
-    const [cart, setCart, totalPrice, itemCount, cartSummary, 
-        sidebar, setSidebar, showSidebar] = useContext(CartContext);
-
+    // eslint-disable-next-line
+    const [cart, setCart, totalPrice, itemCount, cartSummary, sidebar, setSidebar, showSidebar] = useContext(CartContext);
     const [clientSecret, setClientSecret] = useState({});
-    
-    function goto(step) { 
-        if(step === 0){
-            history.push('/cart');
-        }
-    }
 
-    function postRequest(){
+    const stripe = useStripe();
+    const elements = useElements();
+
+    function handleSubmit(){
         axios.post('/api/v1/charge').then((res) => {
             return res.data;
             
         }).then((responseJson) => {
-            const clientSecret = responseJson.client_secret;
-            setClientSecret(clientSecret);
+            const secret = responseJson.client_secret;
+            setClientSecret(secret);
+        }).then(() => {
             console.log(clientSecret);
         });
 
@@ -43,7 +37,7 @@ function Checkout({ history }) {
             <button onClick = {showSidebar}>Edit Cart</button>
             <span className = "total-label">Total:</span>
             <span className = "total-number">${totalPrice}</span>
-            <button onClick = {postRequest} value = "Complete Order">postRequest</button>
+            <button onClick = {handleSubmit} value = "Complete Order">postRequest</button>
         </div>
     )
 }

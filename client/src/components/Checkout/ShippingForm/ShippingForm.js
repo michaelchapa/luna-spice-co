@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import { ShippingStyles } from './ShippingStyles';
 
 const CustomTextInput = ({label, ...props}) => {
+    // eslint-disable-next-line
     const [field, meta, helpers] = useField(props);
     return (
         <>
@@ -17,6 +18,7 @@ const CustomTextInput = ({label, ...props}) => {
 }
 
 const CustomCheckbox = ({children, ...props}) => {
+    // eslint-disable-next-line
     const [field, meta, helpers] = useField(props, 'checkbox');
     return (
         <>
@@ -31,7 +33,9 @@ const CustomCheckbox = ({children, ...props}) => {
     )
 }
 
+// eslint-disable-next-line
 const CustomSelect = ({label, ...props}) => {
+    // eslint-disable-next-line
     const [field, meta, helpers] = useField(props);
     return (
         <>

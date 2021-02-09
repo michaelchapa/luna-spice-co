@@ -8,8 +8,7 @@ import { Link } from 'react-router-dom'
 
 function Cart({ history }) {
     // eslint-disable-next-line
-    const [cart, setCart, totalPrice, itemCount, cartSummary, 
-           sidebar, setSidebar] = useContext(CartContext);
+    const [cart, setCart, totalPrice, itemCount, cartSummary, sidebar, setSidebar] = useContext(CartContext);
 
     function decreaseQuantity(productID){
         let updatedCart = [];

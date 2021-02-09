@@ -4,9 +4,9 @@ import { InventoryContext } from '../InventoryContext'
 import styles from './Homepage.module.css'
 
 export default function Homepage() {
+    // eslint-disable-next-line
+    const [cart, setCart, totalPrice, itemCount, cartSummary, sidebar, setSidebar, showSidebar] = useContext(CartContext);
     const [inventory] = useContext(InventoryContext);
-    const [cart, setCart, totalPrice, itemCount, cartSummary, 
-        sidebar, setSidebar, showSidebar] = useContext(CartContext);
 
     function handleAddToCart(e) {
         e.preventDefault();

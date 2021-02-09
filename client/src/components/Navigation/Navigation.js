@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext} from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import './Navigation.css'
 import { CartContext } from '../CartContext'
@@ -6,13 +6,8 @@ import * as FaIcons from 'react-icons/fi'
 import Cart from '../Cart/Cart'
 
 function Navigation( {history} ){
-    const [cart, setCart, totalPrice, itemCount, cartSummary, 
-        sidebar, setSidebar, showSidebar] = useContext(CartContext);
-
-    function toCheckout(){
-        history.push('/checkout');
-        showSidebar();
-    }
+    // eslint-disable-next-line
+    const [cart, setCart, totalPrice, itemCount, cartSummary, sidebar, setSidebar, showSidebar] = useContext(CartContext);
 
     return(
         <>  
