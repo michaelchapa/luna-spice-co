@@ -22,6 +22,17 @@ function Checkout({ history }) {
             return;
         }
 
+        try {
+            const response = await axios.post('/api/v1/charge');
+            setClientSecret(response.data.client_secret);
+            console.log(clientSecret);
+        } catch(error) {
+            console.log("ERROR: ", error);
+            // handle error
+        }
+        
+
+        /* 
         // get the Secret from Stripe
         axios.post('/api/v1/charge').then((res) => {
             return res.data;
@@ -31,7 +42,7 @@ function Checkout({ history }) {
             setClientSecret(secret);
         }).then(() => {
             console.log(clientSecret);
-        });
+        }); */
 
         // Call stripe.confirmCardPayment() with the client secret.
         const result = await stripe.confirmCardPayment(`${clientSecret}`, {
