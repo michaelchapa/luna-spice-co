@@ -23,29 +23,16 @@ function Checkout({ history }) {
         }
 
         try {
-            const response = await axios.post('/api/v1/charge');
+            let response = await axios.post('/api/v1/charge');
             setClientSecret(response.data.client_secret);
             console.log(clientSecret);
         } catch(error) {
             console.log("ERROR: ", error);
             // handle error
         }
-        
-
-        /* 
-        // get the Secret from Stripe
-        axios.post('/api/v1/charge').then((res) => {
-            return res.data;
-            
-        }).then((responseJson) => {
-            const secret = responseJson.client_secret;
-            setClientSecret(secret);
-        }).then(() => {
-            console.log(clientSecret);
-        }); */
 
         // Call stripe.confirmCardPayment() with the client secret.
-        const result = await stripe.confirmCardPayment(`${clientSecret}`, {
+        let result = await stripe.confirmCardPayment(`${clientSecret}`, {
             payment_method: {
                 card: elements.getElement(CardElement), 
                 billing_details: {
@@ -57,6 +44,7 @@ function Checkout({ history }) {
         if(result.error){
             // Show error to customer (e.g., insufficient funds)
             console.log(result.error.message);
+            console.log("ERRRRR");
         } else {
             // Payment has been processed :)
             if(result.paymentIntent.status === 'succeeded'){

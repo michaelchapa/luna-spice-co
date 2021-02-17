@@ -1,20 +1,21 @@
 require('dotenv').config();
 
 const charge = async (req, res, next) => {
-    try {
         const stripe = require('stripe')(process.env.API_KEY);
-        const paymentIntent = await stripe.paymentIntents.create({
+        let paymentIntent = await stripe.paymentIntents.create({
             amount: 1000,
             currency: 'usd',
             payment_method_types: ['card'],
-            receipt_email: 'michaelchapa1@gmail.com',
+            receipt_email: 'michaelchapa@gmail.com',
             metadata: {integration_check: 'accept_a_payment'}
             });
-    
-        res.status(200).json({client_secret: paymentIntent.client_secret});
-    } catch(error){
-        console.log("API ERROR: ", error);
-    }
+        
+        if(paymentIntent){
+            console.log("paymentIntent returned: ");
+            console.log(paymentIntent.client_secret);
+        }
+
+        res.json({client_secret: paymentIntent.client_secret});
 }
 
 module.exports.charge = charge;
