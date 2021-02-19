@@ -11,14 +11,11 @@ import './Checkout.css'
 function Checkout({ history }) {
     // eslint-disable-next-line
     const [cart, setCart, totalPrice, itemCount, cartSummary, sidebar, setSidebar, showSidebar] = useContext(CartContext);
-    const [clientSecret, setClientSecret] = useState({});
     const fetcher = url => axios.post(url).then(res => res.data);
-    const { data, error } = useSWR('/api/v1/charge', fetcher, {
+    let { data, error } = useSWR('/api/v1/charge', fetcher, {
                                                          revalidateOnFocus: false,
                                                          revalidateOnMount: false
                                                         });
-
-
     const stripe = useStripe();
     const elements = useElements();
 
@@ -29,18 +26,14 @@ function Checkout({ history }) {
             return;
         }
 
-        try {
-            // let response = await axios.post('/api/v1/charge');
-            // setClientSecret(data.client_secret);
-            // console.log(clientSecret);
-            let response = await fetcher('/api/v1/charge');
-            console.log(response);
-        } catch(error) {
-            console.log("ERROR: ", error);
-            // handle error
+        data = await fetcher('/api/v1/charge');
+        const clientSecret = data.client_secret;
+        
+        if(error){
+            console.log("Fetch Error: ", error);
+            return
         }
 
-        /*
         // Call stripe.confirmCardPayment() with the client secret.
         let result = await stripe.confirmCardPayment(`${clientSecret}`, {
             payment_method: {
@@ -66,7 +59,6 @@ function Checkout({ history }) {
                 // post-payment actions.
             }
         }
-        */
     };
 
     return (
