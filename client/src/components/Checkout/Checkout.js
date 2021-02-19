@@ -4,6 +4,7 @@ import { CartContext } from '../CartContext'
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 import ShippingForm from './ShippingForm/ShippingForm'
 import CardSection from './CardSection/CardSection'
+import useSWR from 'swr'
 import axios from 'axios'
 import './Checkout.css'
 
@@ -11,6 +12,12 @@ function Checkout({ history }) {
     // eslint-disable-next-line
     const [cart, setCart, totalPrice, itemCount, cartSummary, sidebar, setSidebar, showSidebar] = useContext(CartContext);
     const [clientSecret, setClientSecret] = useState({});
+    const fetcher = url => axios.post(url).then(res => res.data);
+    const { data, error } = useSWR('/api/v1/charge', fetcher, {
+                                                         revalidateOnFocus: false,
+                                                         revalidateOnMount: false
+                                                        });
+
 
     const stripe = useStripe();
     const elements = useElements();
@@ -23,14 +30,17 @@ function Checkout({ history }) {
         }
 
         try {
-            let response = await axios.post('/api/v1/charge');
-            setClientSecret(response.data.client_secret);
-            console.log(clientSecret);
+            // let response = await axios.post('/api/v1/charge');
+            // setClientSecret(data.client_secret);
+            // console.log(clientSecret);
+            let response = await fetcher('/api/v1/charge');
+            console.log(response);
         } catch(error) {
             console.log("ERROR: ", error);
             // handle error
         }
 
+        /*
         // Call stripe.confirmCardPayment() with the client secret.
         let result = await stripe.confirmCardPayment(`${clientSecret}`, {
             payment_method: {
@@ -44,7 +54,6 @@ function Checkout({ history }) {
         if(result.error){
             // Show error to customer (e.g., insufficient funds)
             console.log(result.error.message);
-            console.log("ERRRRR");
         } else {
             // Payment has been processed :)
             if(result.paymentIntent.status === 'succeeded'){
@@ -57,6 +66,7 @@ function Checkout({ history }) {
                 // post-payment actions.
             }
         }
+        */
     };
 
     return (
